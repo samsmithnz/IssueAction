@@ -42,7 +42,7 @@ jobs:
           }
 
     - name: Remove "High Priority" milestone from issues that remove the "P1" label
-      if: github.event.action == 'unlabeled' && contains(github.event.pull_request.labels.*.name, 'P1')
+      if: github.event.action == 'unlabeled'
       uses: actions/github-script@v4
       with:
         script: |
