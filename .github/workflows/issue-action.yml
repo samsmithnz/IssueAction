@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Add High Priority Milestone
       if: github.event.action == 'labeled' && contains(github.event.label.name, 'P1')
@@ -20,7 +20,6 @@ jobs:
           const label = context.payload.label.name;
           if (label === 'P1') {
             const issue = context.issue;
-            // Use github.issues.listMilestones instead of github.issues.listMilestonesForRepo
             const milestones = await github.issues.listMilestones({
               owner: context.repo.owner,
               repo: context.repo.repo
@@ -44,7 +43,6 @@ jobs:
           const label = context.payload.label.name;
           if (label === 'P1') {
             const issue = context.issue;
-            // Use github.issues.listMilestones instead of github.issues.listMilestonesForRepo
             const milestones = await github.issues.listMilestones({
               owner: context.repo.owner,
               repo: context.repo.repo
