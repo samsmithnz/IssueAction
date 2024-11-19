@@ -24,7 +24,8 @@ jobs:
           const label = context.payload.label.name;
           if (label === 'P1') {
             const issue = context.issue;
-            const milestones = await github.issues.listMilestonesForRepo({
+            // Use github.issues.listMilestones instead of github.issues.listMilestonesForRepo
+            const milestones = await github.issues.listMilestones({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
