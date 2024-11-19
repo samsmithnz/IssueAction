@@ -1,0 +1,40 @@
+name: Issue Action
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  add-milestone:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Add High Priority Milestone
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const label = context.payload.label.name;
+          if (label === 'P1') {
+            const issue = context.issue;
+            const milestones = await github.issues.listMilestonesForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const milestone = milestones.data.find(m => m.title === 'High Priority');
+            if (milestone) {
+              await github.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                milestone: milestone.number
+              });
+            }
+          }
