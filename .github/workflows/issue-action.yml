@@ -17,9 +17,6 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          core.debug(context.issue);
-          core.debug(context.repo.owner);
-          core.debug(context.repo.repo);
           const label = context.payload.label.name;
           if (label === 'P1') {
             const issue = context.issue;
@@ -39,7 +36,7 @@ jobs:
           }
 
     - name: Remove "High Priority" milestone from issues that remove the "P1" label
-      if: false && github.event.action == 'unlabeled'
+      if: github.event.action == 'unlabeled'
       uses: actions/github-script@v7
       with:
         script: |
