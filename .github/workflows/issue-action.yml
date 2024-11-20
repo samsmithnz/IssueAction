@@ -23,13 +23,13 @@ jobs:
           const label = context.payload.label.name;
           if (label === 'P1') {
             const issue = context.issue;
-            const milestones = await github.issues.listMilestones({
+            const milestones = await github.rest.issues.listMilestones({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
             const milestone = milestones.data.find(m => m.title === 'High Priority');
             if (milestone) {
-              await github.issues.update({
+              await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
@@ -46,13 +46,13 @@ jobs:
           const label = context.payload.label.name;
           if (label === 'P1') {
             const issue = context.issue;
-            const milestones = await github.issues.listMilestones({
+            const milestones = await github.rest.issues.listMilestones({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
             const milestone = milestones.data.find(m => m.title === 'High Priority');
             if (milestone) {
-              await github.issues.update({
+              await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
