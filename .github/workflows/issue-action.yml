@@ -17,13 +17,13 @@ jobs:
       with:
         script: |
           core.debug('Getting label for ' + context.issue.number)
-          const labels = github.rest.issues.listLabelsOnIssue({
+          const labels = await github.rest.issues.listLabelsOnIssue({
             context.repo.owner,
-            context.repo.owner,
+            context.repo.repo,
             context.issue.number
-          });
+          })
           core.debug('Counting labels:')
-          core.debug(labels)
+          core.debug(JSON.stringify(labels))
 
     - name: Add needs triage label
       if: github.event.action == 'opened' && join(github.event.labels) == ''
