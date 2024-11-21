@@ -18,9 +18,9 @@ jobs:
         script: |
           core.debug('Getting label for ' + context.issue.number)
           const labels = await github.rest.issues.listLabelsOnIssue({
-            context.repo.owner,
-            context.repo.repo,
-            context.issue.number
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number
           })
           core.debug('Counting labels:')
           core.debug(JSON.stringify(labels))
